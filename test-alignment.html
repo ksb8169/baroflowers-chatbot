@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좌측 정렬 테스트</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 20px;
+        }
+
+        .test-box {
+            background-color: white;
+            padding: 12px 20px;
+            padding-left: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            font-size: 16px;
+            line-height: 1.2;
+            color: #333;
+            white-space: pre-wrap;
+            margin-bottom: 10px;
+            width: 100%;
+            text-align: left !important;
+            letter-spacing: -0.3px;
+            display: block;
+        }
+
+        .test-box * {
+            text-align: left !important;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .debug-info {
+            background-color: #ffe;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>좌측 정렬 테스트 페이지</h1>
+    
+    <div class="test-container">
+        <h2>테스트 1: 정상적인 텍스트</h2>
+        <div id="test1" class="test-box">
+안녕하세요! 😊 아래와 같이 배송 정보를 안내드립니다.
+
+### 📍 주소
+- 강원특별자치도 춘천시 동내면 금촌로 150-19
+
+### 💰 추가배송비
+- 1만원
+
+### 📦 반입상품 안내
+- 모든 상품 배송 가능!
+        </div>
+        <div id="debug1" class="debug-info"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>테스트 2: 공백이 있는 텍스트</h2>
+        <div id="test2" class="test-box">
+        안녕하세요! 😊 아래와 같이 배송 정보를 안내드립니다.
+
+### 📍 주소
+- 강원특별자치도 춘천시 동내면 금촌로 150-19
+        </div>
+        <div id="debug2" class="debug-info"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>테스트 3: HTML로 변환된 텍스트</h2>
+        <div id="test3" class="test-box"></div>
+        <div id="debug3" class="debug-info"></div>
+    </div>
+
+    <button onclick="testNormal()">정상 테스트</button>
+    <button onclick="testWithSpaces()">공백 포함 테스트</button>
+    <button onclick="testAPIResponse()">API 응답 시뮬레이션</button>
+
+    <script>
+        function debugText(elementId, debugId) {
+            const element = document.getElementById(elementId);
+            const debug = document.getElementById(debugId);
+            const text = element.textContent;
+            
+            debug.innerHTML = `
+                텍스트 길이: ${text.length}<br>
+                첫 글자: "${text[0]}" (코드: ${text.charCodeAt(0)})<br>
+                처음 20자: "${text.substring(0, 20)}"<br>
+                computed style text-align: ${window.getComputedStyle(element).textAlign}<br>
+                offsetLeft: ${element.offsetLeft}px
+            `;
+        }
+
+        function testNormal() {
+            const text = `안녕하세요! 😊 아래와 같이 배송 정보를 안내드립니다.
+
+### 📍 주소
+- 강원특별자치도 춘천시 동내면 금촌로 150-19`;
+
+            document.getElementById('test3').textContent = text;
+            debugText('test3', 'debug3');
+        }
+
+        function testWithSpaces() {
+            const text = `    안녕하세요! 😊 아래와 같이 배송 정보를 안내드립니다.
+
+### 📍 주소
+- 강원특별자치도 춘천시 동내면 금촌로 150-19`;
+
+            document.getElementById('test3').innerHTML = text.replace(/\n/g, '<br>');
+            debugText('test3', 'debug3');
+        }
+
+        function testAPIResponse() {
+            // 실제 API 응답 시뮬레이션
+            const apiMessage = `안녕하세요! 😊 아래와 같이 배송 정보를 안내드립니다.
+
+### 📍 주소
+- 강원특별자치도 춘천시 동내면 금촌로 150-19
+
+### 💰 추가배송비
+- 1만원
+
+### 📦 반입상품 안내
+- 모든 상품 배송 가능!`;
+
+            // 실제 showResult 함수처럼 처리
+            const trimmedMessage = apiMessage.trim();
+            document.getElementById('test3').innerHTML = trimmedMessage.replace(/\n/g, '<br>');
+            debugText('test3', 'debug3');
+        }
+
+        // 페이지 로드시 디버깅 정보 표시
+        window.onload = function() {
+            debugText('test1', 'debug1');
+            debugText('test2', 'debug2');
+        };
+    </script>
+</body>
+</html>
