@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바로꽃배달 - UI 버전 비교</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .version-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .version-btn {
+            padding: 12px 30px;
+            border: 2px solid #e74c3c;
+            background-color: white;
+            color: #e74c3c;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .version-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+        
+        .version-btn.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .version-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .version-header {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .version-header h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .version-header p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-content {
+            height: 700px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .version-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .features-comparison {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features-comparison h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .feature-table th,
+        .feature-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .feature-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .feature-table td {
+            font-size: 14px;
+        }
+        
+        .check {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .new-badge {
+            background-color: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .mobile-view {
+            display: none;
+        }
+        
+        @media (max-width: 1024px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-view {
+                display: block;
+                background-color: #fff3cd;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 14px;
+                color: #856404;
+            }
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #e74c3c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌺 바로꽃배달 UI 버전 비교</h1>
+        <p>기존 버전과 새로운 통합형 버전을 비교해보세요</p>
+    </div>
+    
+    <div class="container">
+        <div class="mobile-view">
+            📱 모바일에서는 각 버전을 개별적으로 확인하는 것을 권장합니다
+        </div>
+        
+        <div class="version-selector">
+            <button class="version-btn active" onclick="showComparison()">
+                <i class="fas fa-columns"></i> 비교 보기
+            </button>
+            <button class="version-btn" onclick="showVersion('original')">
+                <i class="fas fa-desktop"></i> 기존 버전만
+            </button>
+            <button class="version-btn" onclick="showVersion('integrated')">
+                <i class="fas fa-layer-group"></i> 통합형 버전만
+            </button>
+        </div>
+        
+        <div id="comparisonView" class="comparison-grid">
+            <!-- 기존 버전 -->
+            <div class="version-card">
+                <div class="version-header">
+                    <h3>기존 버전 (웹앱 스타일)</h3>
+                    <p>독립적인 웹 애플리케이션 형태</p>
+                </div>
+                <div class="version-content">
+                    <div class="loading-overlay" id="loading1">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <iframe 
+                        src="index.html" 
+                        class="version-iframe"
+                        onload="hideLoading('loading1')"
+                    ></iframe>
+                </div>
+            </div>
+            
+            <!-- 새 버전 -->
+            <div class="version-card">
+                <div class="version-header">
+                    <h3>통합형 버전 (상세페이지 스타일) <span class="new-badge">NEW</span></h3>
+                    <p>상세페이지에 자연스럽게 통합되는 형태</p>
+                </div>
+                <div class="version-content">
+                    <div class="loading-overlay" id="loading2">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <iframe 
+                        src="index-integrated.html" 
+                        class="version-iframe"
+                        onload="hideLoading('loading2')"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div id="singleView" style="display: none;">
+            <div class="version-card">
+                <div class="version-header" id="singleHeader">
+                    <h3></h3>
+                    <p></p>
+                </div>
+                <div class="version-content">
+                    <div class="loading-overlay" id="loadingSingle">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <iframe 
+                        id="singleIframe"
+                        class="version-iframe"
+                        onload="hideLoading('loadingSingle')"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 기능 비교 테이블 -->
+        <div class="features-comparison">
+            <h2>📊 주요 차이점 비교</h2>
+            <table class="feature-table">
+                <thead>
+                    <tr>
+                        <th style="width: 40%">비교 항목</th>
+                        <th style="width: 30%">기존 버전</th>
+                        <th style="width: 30%">통합형 버전</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>디자인 컨셉</strong></td>
+                        <td>독립 웹앱 (800x600 고정)</td>
+                        <td>상세페이지 통합형 <span class="new-badge">NEW</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>배경색</strong></td>
+                        <td>그라데이션 배경</td>
+                        <td>흰색 배경 (통합 친화적)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>레이아웃</strong></td>
+                        <td>중앙 정렬 박스형</td>
+                        <td>전체 너비 활용형</td>
+                    </tr>
+                    <tr>
+                        <td><strong>입력 디자인</strong></td>
+                        <td>사각형 입력창</td>
+                        <td>둥근 입력창 + 아이콘</td>
+                    </tr>
+                    <tr>
+                        <td><strong>예시 표시</strong></td>
+                        <td>2x2 그리드 박스</td>
+                        <td>태그형 버튼 <span class="new-badge">NEW</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>결과 표시</strong></td>
+                        <td>단일 카드</td>
+                        <td>구조화된 다중 카드</td>
+                    </tr>
+                    <tr>
+                        <td><strong>반응형</strong></td>
+                        <td><span class="check">✓</span> 기본 지원</td>
+                        <td><span class="check">✓</span> 향상된 반응형</td>
+                    </tr>
+                    <tr>
+                        <td><strong>애니메이션</strong></td>
+                        <td>기본 전환</td>
+                        <td>부드러운 페이드 효과 <span class="new-badge">NEW</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>API 연동</strong></td>
+                        <td><span class="check">✓</span> 네피리티 API</td>
+                        <td><span class="check">✓</span> 동일 (개선된 파싱)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>에러 처리</strong></td>
+                        <td><span class="check">✓</span> 기본</td>
+                        <td><span class="check">✓</span> 시각적 개선</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 사용 가이드 -->
+        <div class="features-comparison" style="margin-top: 20px;">
+            <h2>💡 버전 선택 가이드</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                <div>
+                    <h4 style="color: #3498db; margin-bottom: 10px;">기존 버전이 적합한 경우:</h4>
+                    <ul style="font-size: 14px; line-height: 1.8; color: #555;">
+                        <li>독립적인 페이지로 운영하는 경우</li>
+                        <li>팝업이나 모달로 사용하는 경우</li>
+                        <li>기존 디자인을 유지해야 하는 경우</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #e74c3c; margin-bottom: 10px;">통합형 버전이 적합한 경우:</h4>
+                    <ul style="font-size: 14px; line-height: 1.8; color: #555;">
+                        <li>상품 상세페이지에 포함시키는 경우</li>
+                        <li>기존 사이트 디자인과 통일성이 필요한 경우</li>
+                        <li>더 깔끔한 UI를 원하는 경우</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 로딩 숨기기
+        function hideLoading(id) {
+            setTimeout(() => {
+                document.getElementById(id).style.display = 'none';
+            }, 500);
+        }
+        
+        // 비교 보기
+        function showComparison() {
+            document.getElementById('comparisonView').style.display = 'grid';
+            document.getElementById('singleView').style.display = 'none';
+            updateButtons('comparison');
+        }
+        
+        // 단일 버전 보기
+        function showVersion(version) {
+            const versions = {
+                original: {
+                    title: '기존 버전 (웹앱 스타일)',
+                    subtitle: '독립적인 웹 애플리케이션 형태',
+                    src: 'index.html'
+                },
+                integrated: {
+                    title: '통합형 버전 (상세페이지 스타일)',
+                    subtitle: '상세페이지에 자연스럽게 통합되는 형태',
+                    src: 'index-integrated.html'
+                }
+            };
+            
+            const versionInfo = versions[version];
+            document.getElementById('comparisonView').style.display = 'none';
+            document.getElementById('singleView').style.display = 'block';
+            
+            // 헤더 업데이트
+            const header = document.getElementById('singleHeader');
+            header.querySelector('h3').textContent = versionInfo.title;
+            header.querySelector('p').textContent = versionInfo.subtitle;
+            
+            // iframe 업데이트
+            const iframe = document.getElementById('singleIframe');
+            document.getElementById('loadingSingle').style.display = 'flex';
+            iframe.src = versionInfo.src;
+            
+            updateButtons(version);
+        }
+        
+        // 버튼 상태 업데이트
+        function updateButtons(active) {
+            const buttons = document.querySelectorAll('.version-btn');
+            buttons.forEach((btn, index) => {
+                if ((active === 'comparison' && index === 0) ||
+                    (active === 'original' && index === 1) ||
+                    (active === 'integrated' && index === 2)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

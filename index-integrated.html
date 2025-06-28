@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바로꽃배달 - 배송정보 안내</title>
+    
+    <!-- 기본 폰트 및 아이콘 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 통합형 스타일 -->
+    <link rel="stylesheet" href="style-integrated.css">
+</head>
+<body>
+    <!-- 상세페이지에 통합되는 배송정보 안내 섹션 -->
+    <div class="delivery-info-section">
+        <!-- 섹션 헤더 - 심플하고 깔끔한 디자인 -->
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-truck"></i>
+                배송정보 안내
+            </h2>
+            <p class="section-subtitle">
+                배송지 주소를 입력하시면 추가 배송비와 반입 가능 상품을 안내해드립니다
+            </p>
+        </div>
+
+        <!-- 메인 컨테이너 -->
+        <div class="delivery-container">
+            <!-- 주소 입력 영역 -->
+            <div id="addressInputSection" class="input-section">
+                <form id="addressForm" class="address-form">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                            <input 
+                                type="text" 
+                                id="addressInput" 
+                                class="address-input" 
+                                placeholder="도로명 주소, 지번 주소, 건물명을 입력해주세요"
+                                autocomplete="off"
+                            >
+                            <button type="submit" class="search-btn" id="searchBtn">
+                                <span class="btn-text">조회하기</span>
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 예시 주소 태그 -->
+                    <div class="example-tags">
+                        <span class="tag-label">예시:</span>
+                        <button type="button" class="example-tag" data-address="서울 강남구 테헤란로 152">
+                            강남 코엑스
+                        </button>
+                        <button type="button" class="example-tag" data-address="부산 해운대구 우동 1413">
+                            부산 벡스코
+                        </button>
+                        <button type="button" class="example-tag" data-address="대구가톨릭대학교병원">
+                            대구가톨릭대병원
+                        </button>
+                        <button type="button" class="example-tag" data-address="포시즌스호텔 서울">
+                            포시즌스호텔
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 로딩 상태 -->
+            <div id="loadingSection" class="loading-section" style="display: none;">
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">배송정보를 확인하고 있습니다...</p>
+                </div>
+            </div>
+
+            <!-- 결과 표시 영역 -->
+            <div id="resultSection" class="result-section" style="display: none;">
+                <!-- 주소 확인 카드 -->
+                <div class="address-card">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>배송지 주소</span>
+                    </div>
+                    <div class="card-body">
+                        <p id="confirmedAddress" class="confirmed-address"></p>
+                    </div>
+                </div>
+
+                <!-- 배송 조건 카드 -->
+                <div id="deliveryConditions" class="conditions-card">
+                    <!-- 추가 배송비 정보 -->
+                    <div id="extraFeeSection" class="condition-item" style="display: none;">
+                        <div class="condition-icon fee-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="condition-content">
+                            <h4 class="condition-title">추가 배송비</h4>
+                            <p id="extraFeeText" class="condition-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- 반입 가능 상품 정보 -->
+                    <div id="restrictionSection" class="condition-item" style="display: none;">
+                        <div class="condition-icon restriction-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="condition-content">
+                            <h4 class="condition-title">반입 가능 상품</h4>
+                            <ul id="restrictionList" class="restriction-list"></ul>
+                        </div>
+                    </div>
+
+                    <!-- 조건 없음 메시지 -->
+                    <div id="noConditionsSection" class="no-conditions" style="display: none;">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>특별한 배송 조건이 없습니다</h4>
+                        <p>기본 배송비로 모든 상품 배송이 가능합니다</p>
+                    </div>
+                </div>
+
+                <!-- 다시 조회 버튼 -->
+                <div class="action-buttons">
+                    <button type="button" class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i>
+                        다른 주소 조회하기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 에러 메시지 -->
+            <div id="errorSection" class="error-section" style="display: none;">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p id="errorMessage" class="error-message"></p>
+                    <button type="button" class="retry-btn" id="retryBtn">다시 시도</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 안내 정보 -->
+        <div class="footer-info">
+            <p>
+                <i class="fas fa-phone-alt"></i>
+                더 자세한 문의는 고객센터 
+                <a href="tel:010-2498-8515" class="phone-link">010-2498-8515</a>로 
+                연락주세요
+            </p>
+        </div>
+    </div>
+
+    <!-- 통합형 스크립트 -->
+    <script src="script-integrated.js"></script>
+</body>
+</html>
