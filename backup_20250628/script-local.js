@@ -1,11 +1,11 @@
 /*
-   바로플라워스 스타일 JavaScript V3
+   바로플라워스 스타일 JavaScript V3 - 로컬 테스트용
    - 예시 박스와 배송정보 박스가 서로 전환됨
    - 검색 시작하면 예시 박스 → 배송정보 박스로 변경
 */
 
-// API 설정 (Vercel Functions 사용 - 즉시 응답)
-const API_URL = '/api/chat';
+// API 설정 (로컬 프록시 서버 사용)
+const API_URL = 'http://localhost:3000/api/chat';
 
 // DOM 요소들
 const addressForm = document.getElementById('addressForm');
@@ -165,9 +165,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // 초기 포커스
     addressInput.focus();
 });
-
-// 예시 태그 클릭 시 주소 설정 함수
-function setExampleAddress(address) {
-    addressInput.value = address;
-    addressForm.dispatchEvent(new Event('submit'));
-}

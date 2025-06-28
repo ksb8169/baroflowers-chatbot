@@ -1,0 +1,84 @@
+<!-- 🌺 바로꽃배달 SVG 로고 모음 -->
+<!-- 이 파일에는 여러 버전의 로고가 있어요. 마음에 드는 것을 선택하세요! -->
+
+<!-- 버전 1: 심플한 꽃 로고 -->
+<svg id="logo-v1" width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- 꽃잎 -->
+  <g transform="translate(25, 25)">
+    <!-- 5개의 꽃잎 -->
+    <circle cx="0" cy="-10" r="8" fill="#FF6B9D" opacity="0.9"/>
+    <circle cx="9.5" cy="-3" r="8" fill="#FFC0CB" opacity="0.9"/>
+    <circle cx="6" cy="8" r="8" fill="#FF6B9D" opacity="0.9"/>
+    <circle cx="-6" cy="8" r="8" fill="#FFC0CB" opacity="0.9"/>
+    <circle cx="-9.5" cy="-3" r="8" fill="#FF6B9D" opacity="0.9"/>
+    <!-- 중앙 -->
+    <circle cx="0" cy="0" r="6" fill="#FFE4E1"/>
+  </g>
+  
+  <!-- 텍스트 -->
+  <text x="55" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF6B9D">바로꽃배달</text>
+</svg>
+
+<!-- 버전 2: 그라디언트 꽃 로고 -->
+<svg id="logo-v2" width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C71585;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 꽃 모양 -->
+  <g transform="translate(25, 25)">
+    <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient)" transform="rotate(0)"/>
+    <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient)" transform="rotate(72)"/>
+    <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient)" transform="rotate(144)"/>
+    <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient)" transform="rotate(216)"/>
+    <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient)" transform="rotate(288)"/>
+    <circle cx="0" cy="0" r="5" fill="#FFE4E1"/>
+  </g>
+  
+  <!-- 텍스트 -->
+  <text x="55" y="32" font-family="'Noto Sans KR', Arial, sans-serif" font-size="20" font-weight="bold" fill="url(#pinkGradient)">바로꽃배달</text>
+</svg>
+
+<!-- 버전 3: 미니멀 라인 로고 -->
+<svg id="logo-v3" width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- 꽃 아이콘 (라인 스타일) -->
+  <g transform="translate(25, 25)">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="0" cy="-8" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="7" cy="-2.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="4.3" cy="6.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="-4.3" cy="6.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="-7" cy="-2.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+    <circle cx="0" cy="0" r="4" fill="#FF6B9D"/>
+  </g>
+  
+  <!-- 텍스트 -->
+  <text x="55" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#212529">바로꽃배달</text>
+</svg>
+
+<!-- 버전 4: 모던 플랫 로고 -->
+<svg id="logo-v4" width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C71585;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 심플한 꽃 -->
+  <g transform="translate(25, 25)">
+    <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FF6B9D"/>
+    <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FFC0CB" transform="rotate(45)"/>
+    <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FF6B9D" transform="rotate(90)"/>
+    <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FFC0CB" transform="rotate(135)"/>
+  </g>
+  
+  <!-- 텍스트 -->
+  <text x="55" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="bold">
+    <tspan fill="#FF6B9D">바로</tspan><tspan fill="#212529">꽃배달</tspan>
+  </text>
+  <text x="55" y="42" font-family="Arial, sans-serif" font-size="10" fill="#6C757D">BARO FLOWERS</text>
+</svg>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌺 바로꽃배달 - 피그마 실시간 연동 버전</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 피그마 자동 동기화 스크립트 -->
+    <script src="figma-auto-sync.js"></script>
+</head>
+<body>
+    <!-- 전체 앱 컨테이너 -->
+    <div class="app-container">
+        <!-- 로고가 적용된 헤더 영역 -->
+        <header class="app-header">
+            <div class="header-logo">
+                <svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(20, 20)">
+                        <circle cx="0" cy="-8" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="7.6" cy="-2.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+                        <circle cx="4.8" cy="6.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="-4.8" cy="6.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+                        <circle cx="-7.6" cy="-2.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="0" cy="0" r="4.8" fill="#FFC0CB"/>
+                    </g>
+                    <text x="44" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">바로꽃배달</text>
+                </svg>
+            </div>
+            <a href="tel:010-2498-8515" class="phone-button">
+                📞 고객센터
+            </a>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="app-main">
+            <!-- 피그마 연동 안내 박스 -->
+            <div style="background: #E3F2FD; border-left: 4px solid #17A2B8; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <h3 style="margin: 0 0 10px 0; color: #0D47A1;">🎨 피그마 실시간 연동 테스트</h3>
+                <p style="margin: 0; color: #1565C0; font-size: 14px;">
+                    이 페이지는 피그마와 실시간으로 연동됩니다!<br>
+                    1. MCP 서버를 실행하세요 (npm start)<br>
+                    2. 우측 하단의 "시작" 버튼을 클릭하세요<br>
+                    3. 피그마에서 색상을 변경하면 5초 후 자동 반영됩니다!
+                </p>
+            </div>
+            
+            <!-- 주소 입력 섹션 -->
+            <section class="address-section">
+                <form id="addressForm" class="address-form">
+                    <div class="form-group">
+                        <label for="address">배송지 주소를 입력하면 추가배송비와 반입가능 상품을 안내해드립니다</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="text"
+                                id="addressInput"
+                                class="address-input"
+                                placeholder="도로명 주소, 지번 주소, 건물명, 기관명을 입력해주세요"
+                                autocomplete="off"
+                            />
+                            <button type="submit" class="search-button" id="searchButton">
+                                조회하기
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 콘텐츠 박스 영역 -->
+            <section class="content-box-area">
+                <!-- 예시 박스 -->
+                <div id="exampleBox" class="example-box">
+                    <h3>💡 주소 입력 예시</h3>
+                    <div class="example-grid">
+                        <div class="example-item">
+                            <strong>도로명 주소</strong>
+                            <p>서울특별시 강남구 테헤란로 152</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>지번 주소</strong>
+                            <p>대전광역시 서구 둔산동 1420</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>건물명</strong>
+                            <p>코엑스하모니볼룸, 포시즌즈호텔</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>기관명</strong>
+                            <p>대구가톨릭의과대학병원, 부산영락공원</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 색상 테스트 박스 -->
+                    <div style="margin-top: 30px; padding: 20px; background: var(--color-primary-pale); border-radius: 8px;">
+                        <h4 style="color: var(--color-primary-main); margin-bottom: 15px;">🎨 현재 적용된 색상</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 40px; background: var(--color-primary-main); border-radius: 4px;"></div>
+                                <small>Primary Main</small>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 40px; background: var(--color-primary-light); border-radius: 4px;"></div>
+                                <small>Primary Light</small>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 40px; background: var(--color-secondary-green); border-radius: 4px;"></div>
+                                <small>Success</small>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 40px; background: var(--color-system-error); border-radius: 4px;"></div>
+                                <small>Error</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송정보 박스 -->
+                <div id="deliveryBox" class="delivery-box" style="display: none;">
+                    <div id="deliveryContent" class="delivery-content">
+                        <!-- 로딩 또는 결과가 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

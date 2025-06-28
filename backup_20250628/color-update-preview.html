@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌺 바로꽃배달 색상 업데이트 미리보기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #FF6B9D;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .version {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .version h2 {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #eee;
+        }
+        
+        .old-version h2 {
+            color: #6c757d;
+        }
+        
+        .new-version h2 {
+            color: #FF6B9D;
+        }
+        
+        .change-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .change-item h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .color-box {
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            border-radius: 4px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+        
+        .features {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .features h2 {
+            color: #FF6B9D;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            padding: 20px;
+            background: #FFE4E1;
+            border-radius: 8px;
+            border-left: 4px solid #FF6B9D;
+        }
+        
+        .feature-item h3 {
+            color: #C71585;
+            margin-bottom: 10px;
+        }
+        
+        .preview-buttons {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C71585 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,157,0.4);
+        }
+        
+        .btn-secondary {
+            background: #6C757D;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #495057;
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .color-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .color-sample {
+            width: 100%;
+            height: 60px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .color-code {
+            color: #6c757d;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌺 바로꽃배달 UI 색상 업데이트</h1>
+        
+        <div class="comparison">
+            <div class="version old-version">
+                <h2>⏮️ 이전 버전 (V3)</h2>
+                
+                <div class="change-item">
+                    <h3>헤더 배경</h3>
+                    <span class="color-box" style="background: #2c3e50;"></span>
+                    <code>#2c3e50</code> (어두운 회색)
+                </div>
+                
+                <div class="change-item">
+                    <h3>전화 버튼</h3>
+                    <span class="color-box" style="background: #27ae60;"></span>
+                    <code>#27ae60</code> (초록색)
+                </div>
+                
+                <div class="change-item">
+                    <h3>검색 버튼</h3>
+                    <span class="color-box" style="background: #3498db;"></span>
+                    <code>#3498db</code> (파란색)
+                </div>
+                
+                <div class="change-item">
+                    <h3>에러 색상</h3>
+                    <span class="color-box" style="background: #c33;"></span>
+                    <code>#c33</code> (빨간색)
+                </div>
+                
+                <div class="change-item">
+                    <h3>배경색</h3>
+                    <span class="color-box" style="background: #f0f0f0;"></span>
+                    <code>#f0f0f0</code> (연한 회색)
+                </div>
+            </div>
+            
+            <div class="version new-version">
+                <h2>✨ 새로운 버전 (V4)</h2>
+                
+                <div class="change-item">
+                    <h3>헤더 배경</h3>
+                    <span class="color-box" style="background: linear-gradient(135deg, #FF6B9D 0%, #C71585 100%);"></span>
+                    <code>그라디언트</code> (브랜드 핑크)
+                </div>
+                
+                <div class="change-item">
+                    <h3>전화 버튼</h3>
+                    <span class="color-box" style="background: #FFFFFF; border: 2px solid #FF6B9D;"></span>
+                    <code>흰색 + 핑크 텍스트</code>
+                </div>
+                
+                <div class="change-item">
+                    <h3>검색 버튼</h3>
+                    <span class="color-box" style="background: linear-gradient(135deg, #FF6B9D 0%, #C71585 100%);"></span>
+                    <code>그라디언트</code> (브랜드 핑크)
+                </div>
+                
+                <div class="change-item">
+                    <h3>에러 색상</h3>
+                    <span class="color-box" style="background: #DC3545;"></span>
+                    <code>#DC3545</code> (시스템 빨강)
+                </div>
+                
+                <div class="change-item">
+                    <h3>배경색</h3>
+                    <span class="color-box" style="background: #F8F9FA;"></span>
+                    <code>#F8F9FA</code> (밝은 회색)
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>🎨 새로운 브랜드 색상 팔레트</h2>
+            
+            <div class="color-palette">
+                <div class="color-card">
+                    <div class="color-sample" style="background: #FF6B9D;"></div>
+                    <div class="color-name">Primary Main</div>
+                    <div class="color-code">#FF6B9D</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #FFC0CB;"></div>
+                    <div class="color-name">Primary Light</div>
+                    <div class="color-code">#FFC0CB</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #C71585;"></div>
+                    <div class="color-name">Primary Dark</div>
+                    <div class="color-code">#C71585</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #FFE4E1;"></div>
+                    <div class="color-name">Primary Pale</div>
+                    <div class="color-code">#FFE4E1</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #90EE90;"></div>
+                    <div class="color-name">Success Green</div>
+                    <div class="color-code">#90EE90</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #228B22;"></div>
+                    <div class="color-name">Leaf Green</div>
+                    <div class="color-code">#228B22</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #DC3545;"></div>
+                    <div class="color-name">Error Red</div>
+                    <div class="color-code">#DC3545</div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-sample" style="background: #17A2B8;"></div>
+                    <div class="color-name">Info Blue</div>
+                    <div class="color-code">#17A2B8</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>✨ 주요 개선 사항</h2>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>🎨 CSS 변수 시스템</h3>
+                    <p>모든 색상을 CSS 변수로 관리하여 쉽게 수정할 수 있습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>🌺 브랜드 아이덴티티</h3>
+                    <p>꽃배달 서비스에 맞는 생동감 있는 핑크 색상을 메인으로 사용합니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>✨ 그라디언트 효과</h3>
+                    <p>헤더와 버튼에 그라디언트를 적용하여 현대적인 느낌을 줍니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>🎯 호버 효과 개선</h3>
+                    <p>모든 인터랙티브 요소에 부드러운 애니메이션을 추가했습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>📱 반응형 개선</h3>
+                    <p>모바일에서도 아름답게 보이도록 스타일을 최적화했습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>💫 특별 효과</h3>
+                    <p>포커스 시 펄스 애니메이션, 커스텀 스크롤바 등을 추가했습니다.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="preview-buttons">
+            <h2>🚀 실제로 확인해보세요!</h2>
+            <p style="margin: 20px 0; color: #6c757d;">아래 버튼을 클릭하여 변경 사항을 직접 확인할 수 있습니다.</p>
+            
+            <a href="../index.html" class="btn btn-primary">
+                🌺 새로운 디자인 보기
+            </a>
+            
+            <a href="https://baroflowers-chatbot.vercel.app/" class="btn btn-secondary" target="_blank">
+                🌐 현재 운영 중인 사이트
+            </a>
+        </div>
+    </div>
+</body>
+</html>

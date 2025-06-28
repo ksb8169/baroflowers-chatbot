@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌺 바로꽃배달 로고 선택</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #FF6B9D;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+        
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .logo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .logo-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-dark-bg {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C71585 100%);
+        }
+        
+        h3 {
+            color: #212529;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .select-button {
+            background: #FF6B9D;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .select-button:hover {
+            background: #C71585;
+            transform: translateY(-2px);
+        }
+        
+        .code-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 40px;
+            display: none;
+        }
+        
+        .code-section.active {
+            display: block;
+        }
+        
+        .code-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        
+        .instruction {
+            background: #e3f2fd;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .copy-button {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            float: right;
+            margin-top: -10px;
+        }
+        
+        .copy-button:hover {
+            background: #138496;
+        }
+        
+        /* 실제 헤더 미리보기 */
+        .header-preview {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C71585 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .phone-btn-preview {
+            background: white;
+            color: #FF6B9D;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌺 바로꽃배달 로고 선택하기</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 18px;">
+            마음에 드는 로고를 선택하세요! 선택하면 적용 방법을 알려드립니다.
+        </p>
+        
+        <div class="logo-grid">
+            <!-- 로고 1 -->
+            <div class="logo-card">
+                <h3>버전 1: 심플한 꽃 로고</h3>
+                <p>다섯 개의 원으로 만든 귀여운 꽃 모양입니다. 부드럽고 친근한 느낌을 줍니다.</p>
+                <div class="logo-preview">
+                    <svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(25, 25)">
+                            <circle cx="0" cy="-10" r="8" fill="#FF6B9D" opacity="0.9"/>
+                            <circle cx="9.5" cy="-3" r="8" fill="#FFC0CB" opacity="0.9"/>
+                            <circle cx="6" cy="8" r="8" fill="#FF6B9D" opacity="0.9"/>
+                            <circle cx="-6" cy="8" r="8" fill="#FFC0CB" opacity="0.9"/>
+                            <circle cx="-9.5" cy="-3" r="8" fill="#FF6B9D" opacity="0.9"/>
+                            <circle cx="0" cy="0" r="6" fill="#FFE4E1"/>
+                        </g>
+                        <text x="55" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF6B9D">바로꽃배달</text>
+                    </svg>
+                </div>
+                <button class="select-button" onclick="selectLogo(1)">이 로고 선택</button>
+            </div>
+            
+            <!-- 로고 2 -->
+            <div class="logo-card">
+                <h3>버전 2: 그라디언트 꽃 로고</h3>
+                <p>그라디언트로 고급스러운 느낌을 주는 꽃잎 디자인입니다.</p>
+                <div class="logo-preview">
+                    <svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="pinkGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#C71585;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(25, 25)">
+                            <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient2)" transform="rotate(0)"/>
+                            <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient2)" transform="rotate(72)"/>
+                            <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient2)" transform="rotate(144)"/>
+                            <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient2)" transform="rotate(216)"/>
+                            <path d="M0,-15 C5,-10 5,-5 0,0 C-5,-5 -5,-10 0,-15" fill="url(#pinkGradient2)" transform="rotate(288)"/>
+                            <circle cx="0" cy="0" r="5" fill="#FFE4E1"/>
+                        </g>
+                        <text x="55" y="32" font-family="'Noto Sans KR', Arial, sans-serif" font-size="20" font-weight="bold" fill="url(#pinkGradient2)">바로꽃배달</text>
+                    </svg>
+                </div>
+                <button class="select-button" onclick="selectLogo(2)">이 로고 선택</button>
+            </div>
+            
+            <!-- 로고 3 -->
+            <div class="logo-card">
+                <h3>버전 3: 미니멀 라인 로고</h3>
+                <p>라인으로만 구성된 세련되고 모던한 디자인입니다.</p>
+                <div class="logo-preview">
+                    <svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(25, 25)">
+                            <circle cx="0" cy="0" r="20" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="0" cy="-8" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="7" cy="-2.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="4.3" cy="6.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="-4.3" cy="6.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="-7" cy="-2.5" r="6" fill="none" stroke="#FF6B9D" stroke-width="2"/>
+                            <circle cx="0" cy="0" r="4" fill="#FF6B9D"/>
+                        </g>
+                        <text x="55" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#212529">바로꽃배달</text>
+                    </svg>
+                </div>
+                <button class="select-button" onclick="selectLogo(3)">이 로고 선택</button>
+            </div>
+            
+            <!-- 로고 4 -->
+            <div class="logo-card">
+                <h3>버전 4: 모던 플랫 로고</h3>
+                <p>영문 서브타이틀이 있는 전문적인 디자인입니다.</p>
+                <div class="logo-preview">
+                    <svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(25, 25)">
+                            <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FF6B9D"/>
+                            <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FFC0CB" transform="rotate(45)"/>
+                            <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FF6B9D" transform="rotate(90)"/>
+                            <rect x="-3" y="-12" width="6" height="24" rx="3" fill="#FFC0CB" transform="rotate(135)"/>
+                        </g>
+                        <text x="55" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="bold">
+                            <tspan fill="#FF6B9D">바로</tspan><tspan fill="#212529">꽃배달</tspan>
+                        </text>
+                        <text x="55" y="42" font-family="Arial, sans-serif" font-size="10" fill="#6C757D">BARO FLOWERS</text>
+                    </svg>
+                </div>
+                <button class="select-button" onclick="selectLogo(4)">이 로고 선택</button>
+            </div>
+        </div>
+        
+        <!-- 선택한 로고 적용 방법 -->
+        <div id="codeSection" class="code-section">
+            <h2>✨ 로고 적용 방법</h2>
+            
+            <div class="instruction">
+                <strong>Step 1:</strong> 아래 HTML 코드를 복사하세요
+                <button class="copy-button" onclick="copyCode('htmlCode')">복사</button>
+            </div>
+            
+            <div class="code-box" id="htmlCode">
+                <!-- 코드가 여기에 동적으로 삽입됩니다 -->
+            </div>
+            
+            <div class="instruction">
+                <strong>Step 2:</strong> index.html 파일을 열고, 다음 부분을 찾으세요:
+            </div>
+            
+            <div class="code-box">
+&lt;header class="app-header"&gt;
+    &lt;h1&gt;🌺 바로꽃배달 배송안내&lt;/h1&gt;
+    &lt;a href="tel:010-2498-8515" class="phone-button"&gt;
+        📞 고객센터
+    &lt;/a&gt;
+&lt;/header&gt;
+            </div>
+            
+            <div class="instruction">
+                <strong>Step 3:</strong> 위 코드를 복사한 코드로 교체하세요
+            </div>
+            
+            <h3 style="margin-top: 30px;">🎨 미리보기</h3>
+            <div id="headerPreview" class="header-preview">
+                <!-- 헤더 미리보기가 여기에 표시됩니다 -->
+            </div>
+            
+            <div class="instruction" style="background: #d4edda; border-left-color: #28a745;">
+                <strong>💡 팁:</strong> 로고 크기나 색상을 변경하고 싶으시면 SVG 코드의 width, height, fill 값을 수정하세요!
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function selectLogo(version) {
+            const codeSection = document.getElementById('codeSection');
+            const htmlCode = document.getElementById('htmlCode');
+            const headerPreview = document.getElementById('headerPreview');
+            
+            let logoSVG = '';
+            
+            switch(version) {
+                case 1:
+                    logoSVG = `<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(20, 20)">
+            <circle cx="0" cy="-8" r="6" fill="#FFFFFF" opacity="0.9"/>
+            <circle cx="7.6" cy="-2.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+            <circle cx="4.8" cy="6.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+            <circle cx="-4.8" cy="6.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+            <circle cx="-7.6" cy="-2.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+            <circle cx="0" cy="0" r="4.8" fill="#FFC0CB"/>
+        </g>
+        <text x="44" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">바로꽃배달</text>
+    </svg>`;
+                    break;
+                case 2:
+                    logoSVG = `<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#FFE4E1;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+        <g transform="translate(20, 20)">
+            <path d="M0,-12 C4,-8 4,-4 0,0 C-4,-4 -4,-8 0,-12" fill="url(#logoGrad)" transform="rotate(0)"/>
+            <path d="M0,-12 C4,-8 4,-4 0,0 C-4,-4 -4,-8 0,-12" fill="url(#logoGrad)" transform="rotate(72)"/>
+            <path d="M0,-12 C4,-8 4,-4 0,0 C-4,-4 -4,-8 0,-12" fill="url(#logoGrad)" transform="rotate(144)"/>
+            <path d="M0,-12 C4,-8 4,-4 0,0 C-4,-4 -4,-8 0,-12" fill="url(#logoGrad)" transform="rotate(216)"/>
+            <path d="M0,-12 C4,-8 4,-4 0,0 C-4,-4 -4,-8 0,-12" fill="url(#logoGrad)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="4" fill="#FFC0CB"/>
+        </g>
+        <text x="44" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">바로꽃배달</text>
+    </svg>`;
+                    break;
+                case 3:
+                    logoSVG = `<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(20, 20)">
+            <circle cx="0" cy="-6.4" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="5.6" cy="-2" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="3.4" cy="5.2" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="-3.4" cy="5.2" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="-5.6" cy="-2" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="3.2" fill="#FFFFFF"/>
+        </g>
+        <text x="44" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">바로꽃배달</text>
+    </svg>`;
+                    break;
+                case 4:
+                    logoSVG = `<svg width="160" height="40" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(20, 20)">
+            <rect x="-2.4" y="-9.6" width="4.8" height="19.2" rx="2.4" fill="#FFFFFF"/>
+            <rect x="-2.4" y="-9.6" width="4.8" height="19.2" rx="2.4" fill="#FFE4E1" transform="rotate(45)"/>
+            <rect x="-2.4" y="-9.6" width="4.8" height="19.2" rx="2.4" fill="#FFFFFF" transform="rotate(90)"/>
+            <rect x="-2.4" y="-9.6" width="4.8" height="19.2" rx="2.4" fill="#FFE4E1" transform="rotate(135)"/>
+        </g>
+        <text x="44" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold">
+            <tspan fill="#FFFFFF">바로</tspan><tspan fill="#FFE4E1">꽃배달</tspan>
+        </text>
+        <text x="44" y="34" font-family="Arial, sans-serif" font-size="8" fill="#FFE4E1">BARO FLOWERS</text>
+    </svg>`;
+                    break;
+            }
+            
+            // HTML 코드 생성
+            const fullHTML = `<header class="app-header">
+    <div class="header-logo">
+        ${logoSVG}
+    </div>
+    <a href="tel:010-2498-8515" class="phone-button">
+        📞 고객센터
+    </a>
+</header>`;
+            
+            // 코드 표시
+            htmlCode.textContent = fullHTML;
+            
+            // 미리보기 표시
+            headerPreview.innerHTML = `
+                <div class="header-logo">
+                    ${logoSVG}
+                </div>
+                <a href="#" class="phone-btn-preview">
+                    📞 고객센터
+                </a>
+            `;
+            
+            // 섹션 표시
+            codeSection.classList.add('active');
+            
+            // 스크롤
+            codeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // 복사 완료 알림
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '복사됨!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#17a2b8';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

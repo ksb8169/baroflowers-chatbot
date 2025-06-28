@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배포 전 API 테스트</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .test-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #c0392b;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+        .success { color: #27ae60; }
+        .error { color: #e74c3c; }
+        .info { color: #3498db; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 배포 전 API 테스트</h1>
+        
+        <div class="test-section">
+            <h2>1. API 엔드포인트 테스트</h2>
+            <p>현재 환경: <span id="environment" class="info"></span></p>
+            <button class="test-btn" onclick="testLocalAPI()">로컬 API 테스트</button>
+            <button class="test-btn" onclick="testVercelAPI()">Vercel API 테스트</button>
+            <div id="apiResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 테스트 주소 검색</h2>
+            <button class="test-btn" onclick="testAddress('서울 강남구 테헤란로 152')">강남 테스트</button>
+            <button class="test-btn" onclick="testAddress('부산 해운대구 우동 1413')">부산 테스트</button>
+            <button class="test-btn" onclick="testAddress('대구가톨릭대학교병원')">병원 테스트</button>
+            <button class="test-btn" onclick="testAddress('포시즌스호텔 서울')">호텔 테스트</button>
+            <div id="addressResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 배포 체크리스트</h2>
+            <ul>
+                <li>✅ 통합형 UI 파일 생성 완료</li>
+                <li>✅ 로컬 테스트 완료</li>
+                <li id="apiCheck">⏳ API 연동 확인 중...</li>
+                <li id="deployCheck">⏳ GitHub 업로드 대기</li>
+                <li id="vercelCheck">⏳ Vercel 배포 대기</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. 배포 명령어</h2>
+            <p>아래 명령어를 실행하여 GitHub에 업로드하세요:</p>
+            <code style="display: block; background: #2c3e50; color: white; padding: 10px; border-radius: 5px;">
+                cd C:\Users\오늘\Desktop\chatbot-webapp\baroflowers-v3-latest<br>
+                deploy-integrated.bat
+            </code>
+        </div>
+    </div>
+    
+    <script>
+        // 현재 환경 표시
+        document.getElementById('environment').textContent = 
+            window.location.hostname === 'localhost' ? '로컬 개발 환경' : '배포 환경';
+        
+        // 로컬 API 테스트
+        async function testLocalAPI() {
+            const result = document.getElementById('apiResult');
+            result.innerHTML = '<span class="info">테스트 중...</span>';
+            
+            try {
+                const response = await fetch('http://localhost:3001/proxy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: '테스트' })
+                });
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ 로컬 프록시 서버 정상 작동</span>';
+                } else {
+                    result.innerHTML = '<span class="error">❌ 로컬 프록시 서버 응답 오류</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ 로컬 프록시 서버가 실행되지 않았습니다.<br>cd ../server && node proxy-server.js 실행 필요</span>';
+            }
+        }
+        
+        // Vercel API 테스트
+        async function testVercelAPI() {
+            const result = document.getElementById('apiResult');
+            result.innerHTML = '<span class="info">테스트 중...</span>';
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: '테스트' })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ Vercel API 정상 작동<br>' + JSON.stringify(data, null, 2) + '</span>';
+                    document.getElementById('apiCheck').innerHTML = '✅ API 연동 확인 완료';
+                } else {
+                    result.innerHTML = '<span class="error">❌ Vercel API 응답 오류<br>' + JSON.stringify(data, null, 2) + '</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Vercel API 접근 실패: ' + error.message + '</span>';
+            }
+        }
+        
+        // 주소 테스트
+        async function testAddress(address) {
+            const result = document.getElementById('addressResult');
+            result.innerHTML = '<span class="info">검색 중: ' + address + '</span>';
+            
+            const apiEndpoint = window.location.hostname === 'localhost' 
+                ? 'http://localhost:3001/proxy' 
+                : '/api/chat';
+            
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: address })
+                });
+                
+                const data = await response.json();
+                if (data.code === '00') {
+                    result.innerHTML = '<span class="success">✅ 성공<br>주소: ' + address + '<br>응답: ' + data.message + '</span>';
+                } else {
+                    result.innerHTML = '<span class="error">❌ 오류<br>' + data.message + '</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ 요청 실패: ' + error.message + '</span>';
+            }
+        }
+        
+        // 자동으로 로컬 환경에서 API 테스트
+        if (window.location.hostname === 'localhost') {
+            setTimeout(testLocalAPI, 1000);
+        } else {
+            setTimeout(testVercelAPI, 1000);
+        }
+    </script>
+</body>
+</html>

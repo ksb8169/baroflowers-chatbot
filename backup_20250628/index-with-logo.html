@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌺 바로꽃배달 배송안내</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- 전체 앱 컨테이너 -->
     <div class="app-container">
-        <!-- 헤더 영역 -->
+        <!-- 🌺 로고가 적용된 헤더 영역 -->
         <header class="app-header">
-            <h1>🌺 바로꽃배달 배송안내</h1>
+            <div class="header-logo">
+                <svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(20, 20)">
+                        <circle cx="0" cy="-8" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="7.6" cy="-2.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+                        <circle cx="4.8" cy="6.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="-4.8" cy="6.4" r="6" fill="#FFE4E1" opacity="0.9"/>
+                        <circle cx="-7.6" cy="-2.4" r="6" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="0" cy="0" r="4.8" fill="#FFC0CB"/>
+                    </g>
+                    <text x="44" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">바로꽃배달</text>
+                </svg>
+            </div>
             <a href="tel:010-2498-8515" class="phone-button">
                 📞 고객센터
             </a>
@@ -45,12 +56,24 @@
             <section class="content-box-area">
                 <!-- 예시 박스 (초기 표시) -->
                 <div id="exampleBox" class="example-box">
-                    <h3>💡 예시 주소를 클릭해보세요</h3>
-                    <div class="example-tags">
-                        <div class="example-tag" onclick="setExampleAddress('서울 강남구 테헤란로 152')">강남 코엑스</div>
-                        <div class="example-tag" onclick="setExampleAddress('부산 해운대구 우동 1413')">부산 벡스코</div>
-                        <div class="example-tag" onclick="setExampleAddress('대구가톨릭대학교병원')">대구가톨릭대병원</div>
-                        <div class="example-tag" onclick="setExampleAddress('포시즌스호텔 서울')">포시즌스호텔</div>
+                    <h3>💡 주소 입력 예시</h3>
+                    <div class="example-grid">
+                        <div class="example-item">
+                            <strong>도로명 주소</strong>
+                            <p>서울특별시 강남구 테헤란로 152</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>지번 주소</strong>
+                            <p>대전광역시 서구 둔산동 1420</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>건물명</strong>
+                            <p>코엑스하모니볼룸, 포시즌즈호텔</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>기관명</strong>
+                            <p>대구가톨릭의과대학병원, 부산영락공원</p>
+                        </div>
                     </div>
                 </div>
 

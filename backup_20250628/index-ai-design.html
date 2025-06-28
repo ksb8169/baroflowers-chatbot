@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌺 바로꽃배달 AI 배송안내</title>
+    <style>
+        /* 초기화 및 기본 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFFFFF 50%, #FFF0F5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        /* 컨테이너 */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* 헤더 영역 */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .logo-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #FF6B9D, #C71585);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 107, 157, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B9D, #C71585);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #6C757D;
+            font-size: 14px;
+        }
+        
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* 주소 입력 카드 */
+        .address-input-card {
+            text-align: center;
+        }
+        
+        .input-icon {
+            width: 48px;
+            height: 48px;
+            background: #FFE4E1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: #FF6B9D;
+        }
+        
+        .input-group {
+            position: relative;
+            margin: 24px 0;
+        }
+        
+        .address-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid #E9ECEF;
+            border-radius: 12px;
+            background: #F8F9FA;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .address-input:focus {
+            outline: none;
+            border-color: #FF6B9D;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FF6B9D, #C71585);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+        
+        .submit-button:disabled {
+            background: #DEE2E6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* AI 챗봇 헤더 카드 */
+        .ai-header-card {
+            background: linear-gradient(135deg, #FFE4E1, #FFF0F5);
+            border: none;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ai-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B9D, #C71585);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .ai-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 2px;
+        }
+        
+        .ai-info p {
+            font-size: 12px;
+            color: #6C757D;
+        }
+        
+        /* 결과 카드 */
+        .result-card {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .address-display {
+            background: #F8F9FA;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+        
+        .icon {
+            color: #FF6B9D;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .address-text {
+            flex: 1;
+        }
+        
+        .address-text .label {
+            font-size: 12px;
+            color: #6C757D;
+            margin-bottom: 4px;
+        }
+        
+        .address-text .value {
+            font-size: 14px;
+            color: #212529;
+        }
+        
+        /* 배송 정보 섹션 */
+        .delivery-info {
+            margin: 20px 0;
+        }
+        
+        .delivery-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+        
+        .info-label {
+            font-size: 13px;
+            color: #6C757D;
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-size: 14px;
+            color: #212529;
+            font-weight: 500;
+        }
+        
+        /* 특별 안내 박스 */
+        .special-notice {
+            background: #FFF3CD;
+            border: 1px solid #FFE69C;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #856404;
+        }
+        
+        .special-notice .emoji {
+            font-size: 16px;
+            margin-right: 4px;
+        }
+        
+        /* 배지 스타일 */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #FFE4E1;
+            color: #C71585;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        .badge.green {
+            background: #D4EDDA;
+            color: #155724;
+        }
+        
+        /* 다시 조회 버튼 */
+        .reset-button {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            color: #495057;
+            border: 2px solid #DEE2E6;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .reset-button:hover {
+            border-color: #FF6B9D;
+            color: #FF6B9D;
+            background: #FFE4E1;
+        }
+        
+        /* 고객센터 안내 */
+        .help-card {
+            background: #F8F9FA;
+            border: 1px solid #E9ECEF;
+            text-align: center;
+            font-size: 12px;
+            color: #6C757D;
+            padding: 16px;
+        }
+        
+        .help-card .phone {
+            color: #FF6B9D;
+            font-weight: 600;
+        }
+        
+        /* 로딩 애니메이션 */
+        .loading {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: loading 1.4s infinite;
+        }
+        
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes loading {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* 타이핑 애니메이션 */
+        .typing {
+            display: inline-flex;
+            gap: 4px;
+            margin: 20px 0;
+        }
+        
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            background: #6C757D;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* 페이드인 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 숨김 처리 */
+        .hidden {
+            display: none;
+        }
+        
+        /* 예시 주소 태그 */
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            justify-content: center;
+        }
+        
+        .example-tag {
+            background: white;
+            border: 1px solid #E9ECEF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #6C757D;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .example-tag:hover {
+            border-color: #FF6B9D;
+            color: #FF6B9D;
+            background: #FFE4E1;
+        }
+        
+        /* 푸터 */
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 12px;
+            color: #6C757D;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 640px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo-icon">🌺</div>
+            <h1>바로꽃배달 AI 배송안내</h1>
+            <p>AI가 분석하는 맞춤형 꽃배달 정보</p>
+        </div>
+        
+        <!-- 주소 입력 섹션 -->
+        <div id="addressInputSection">
+            <div class="card address-input-card">
+                <div class="input-icon">📍</div>
+                <h2 style="font-size: 18px; margin-bottom: 8px;">배송 안내 서비스</h2>
+                <p style="font-size: 14px; color: #6C757D; margin-bottom: 24px;">
+                    배송받을 주소를 입력하시면<br>
+                    추가 배송비와 반입가능 상품을 안내해드릴게요!
+                </p>
+                
+                <form id="addressForm" class="input-group">
+                    <input 
+                        type="text" 
+                        id="addressInput"
+                        class="address-input" 
+                        placeholder="예: 서울시 강남구 테헤란로 152"
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="submit-button" id="submitButton">
+                        <span>🔍</span>
+                        <span id="buttonText">배송정보 확인</span>
+                    </button>
+                </form>
+                
+                <!-- 예시 주소 -->
+                <div class="example-tags">
+                    <div class="example-tag" onclick="setExample('서울 강남구 테헤란로 152')">서울 강남구</div>
+                    <div class="example-tag" onclick="setExample('코엑스하모니볼룸')">코엑스하모니볼룸</div>
+                    <div class="example-tag" onclick="setExample('대구가톨릭의과대학병원')">대구가톨릭병원</div>
+                    <div class="example-tag" onclick="setExample('경기도 포천시')">경기도 포천시</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI 결과 섹션 -->
+        <div id="resultSection" class="hidden">
+            <!-- AI 챗봇 헤더 -->
+            <div class="card ai-header-card">
+                <div class="ai-avatar">🤖</div>
+                <div class="ai-info">
+                    <h3>플라워 AI 어시스턴트</h3>
+                    <p id="aiStatus">분석 중...</p>
+                </div>
+            </div>
+            
+            <!-- 결과 카드 -->
+            <div class="card result-card">
+                <!-- 타이핑 애니메이션 -->
+                <div id="typingIndicator" class="typing">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                
+                <!-- 결과 내용 -->
+                <div id="resultContent" class="hidden">
+                    <!-- 주소 확인 -->
+                    <div class="address-display">
+                        <span class="icon">📍</span>
+                        <div class="address-text">
+                            <div class="label">입력하신 주소</div>
+                            <div class="value" id="confirmedAddress"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 배송 분석 결과 -->
+                    <div class="delivery-info">
+                        <h4>
+                            <span style="color: #28A745;">🌸</span>
+                            배송 분석 결과
+                        </h4>
+                        
+                        <div id="deliveryDetails">
+                            <!-- 동적으로 생성됨 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 특별 안내사항 -->
+                    <div id="specialNotice" class="special-notice">
+                        <!-- 동적으로 생성됨 -->
+                    </div>
+                    
+                    <!-- 다시 조회 버튼 -->
+                    <button class="reset-button" onclick="resetSearch()">
+                        <span>🔄</span>
+                        <span>다른 주소 조회하기</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 고객센터 안내 -->
+            <div class="card help-card">
+                <p>
+                    더 정확한 배송정보가 필요하시면<br>
+                    고객센터 <span class="phone">010-2498-8515</span>로 문의해주세요
+                </p>
+            </div>
+        </div>
+        
+        <!-- 푸터 -->
+        <div class="footer">
+            <p>Powered by AI • 실시간 배송정보 분석</p>
+        </div>
+    </div>
+    
+    <script>
+        // API 엔드포인트 설정
+        const API_URL = '/api/chat';  // Vercel Functions 사용
+        
+        // 폼 제출 처리
+        document.getElementById('addressForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const address = document.getElementById('addressInput').value.trim();
+            if (!address) return;
+            
+            // 버튼 상태 변경
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = document.getElementById('buttonText');
+            submitButton.disabled = true;
+            buttonText.innerHTML = '<div class="loading"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>';
+            
+            // 섹션 전환
+            document.getElementById('addressInputSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            
+            // AI 상태 업데이트
+            document.getElementById('aiStatus').textContent = '주소를 분석하고 있어요...';
+            
+            // 타이핑 애니메이션 시작
+            document.getElementById('typingIndicator').classList.remove('hidden');
+            document.getElementById('resultContent').classList.add('hidden');
+            
+            try {
+                // API 호출
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: address })
+                });
+                
+                const data = await response.json();
+                
+                // 1.5초 후 결과 표시 (타이핑 효과)
+                setTimeout(() => {
+                    displayResult(address, data);
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                setTimeout(() => {
+                    displayError(address);
+                }, 1500);
+            }
+            
+            // 버튼 상태 복원
+            submitButton.disabled = false;
+            buttonText.textContent = '배송정보 확인';
+        });
+        
+        // 결과 표시 함수
+        function displayResult(address, data) {
+            // AI 상태 업데이트
+            document.getElementById('aiStatus').textContent = '분석 완료!';
+            
+            // 타이핑 숨기고 결과 표시
+            document.getElementById('typingIndicator').classList.add('hidden');
+            document.getElementById('resultContent').classList.remove('hidden');
+            
+            // 주소 표시
+            document.getElementById('confirmedAddress').textContent = address;
+            
+            // 배송 정보 파싱 및 표시
+            if (data.code === '00' && data.message) {
+                const deliveryInfo = parseDeliveryInfo(data.message);
+                displayDeliveryInfo(deliveryInfo);
+            } else {
+                displayError(address);
+            }
+        }
+        
+        // 배송 정보 파싱
+        function parseDeliveryInfo(message) {
+            const info = {
+                extraFee: '없음',
+                restrictions: [],
+                tips: []
+            };
+            
+            // 추가 배송비 파싱
+            if (message.includes('추가 배송비')) {
+                const feeMatch = message.match(/추가 배송비[^\d]*(\d+,?\d*원|없음)/);
+                if (feeMatch) {
+                    info.extraFee = feeMatch[1];
+                }
+            }
+            
+            // 반입 가능 상품 파싱
+            if (message.includes('반입 가능') || message.includes('반입가능')) {
+                const lines = message.split('\n');
+                let inRestrictionSection = false;
+                
+                lines.forEach(line => {
+                    if (line.includes('반입 가능') || line.includes('반입가능')) {
+                        inRestrictionSection = true;
+                    } else if (inRestrictionSection && line.trim().startsWith('•')) {
+                        info.restrictions.push(line.trim().substring(1).trim());
+                    }
+                });
+            }
+            
+            // 특별 안내사항
+            if (message.includes('대량 주문') || message.includes('협의')) {
+                info.tips.push('대량 주문시 배송비 협의가 가능합니다');
+            }
+            
+            return info;
+        }
+        
+        // 배송 정보 표시
+        function displayDeliveryInfo(info) {
+            const deliveryDetails = document.getElementById('deliveryDetails');
+            
+            // 추가 배송비
+            let html = `
+                <div class="info-item">
+                    <span class="icon" style="color: #FFC107;">💰</span>
+                    <div>
+                        <div class="info-label">추가 배송비</div>
+                        <div class="info-value">
+                            ${info.extraFee === '없음' ? 
+                                '<span class="badge green">추가 배송비 없음</span>' : 
+                                `<span class="badge">${info.extraFee}</span>`}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 반입 가능 상품
+            if (info.restrictions.length > 0) {
+                html += `
+                    <div class="info-item">
+                        <span class="icon" style="color: #17A2B8;">📦</span>
+                        <div>
+                            <div class="info-label">반입 가능 상품</div>
+                            <div class="info-value">
+                                ${info.restrictions.map(item => `• ${item}`).join('<br>')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // 예상 배송 시간
+            html += `
+                <div class="info-item">
+                    <span class="icon" style="color: #6F42C1;">⏰</span>
+                    <div>
+                        <div class="info-label">예상 배송 시간</div>
+                        <div class="info-value">주문 후 1-2일 이내</div>
+                    </div>
+                </div>
+            `;
+            
+            deliveryDetails.innerHTML = html;
+            
+            // 특별 안내사항
+            const specialNotice = document.getElementById('specialNotice');
+            if (info.tips.length > 0) {
+                specialNotice.innerHTML = `
+                    <span class="emoji">💡</span>
+                    <strong>꽃배달 팁:</strong> ${info.tips[0]}
+                `;
+                specialNotice.classList.remove('hidden');
+            } else if (info.extraFee === '없음') {
+                specialNotice.innerHTML = `
+                    <span class="emoji">🌸</span>
+                    <strong>좋은 소식!</strong> 해당 지역은 추가 배송비 없이 모든 꽃을 배송해드릴 수 있어요!
+                `;
+                specialNotice.classList.remove('hidden');
+            } else {
+                specialNotice.classList.add('hidden');
+            }
+        }
+        
+        // 에러 표시
+        function displayError(address) {
+            document.getElementById('aiStatus').textContent = '분석 완료!';
+            document.getElementById('typingIndicator').classList.add('hidden');
+            document.getElementById('resultContent').classList.remove('hidden');
+            document.getElementById('confirmedAddress').textContent = address;
+            
+            const deliveryDetails = document.getElementById('deliveryDetails');
+            deliveryDetails.innerHTML = `
+                <div class="info-item">
+                    <span class="icon" style="color: #DC3545;">⚠️</span>
+                    <div>
+                        <div class="info-value" style="color: #DC3545;">
+                            배송 정보를 가져올 수 없습니다.<br>
+                            고객센터로 문의해주세요.
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('specialNotice').classList.add('hidden');
+        }
+        
+        // 예시 주소 설정
+        function setExample(address) {
+            document.getElementById('addressInput').value = address;
+            document.getElementById('addressInput').focus();
+        }
+        
+        // 다시 검색
+        function resetSearch() {
+            document.getElementById('addressInputSection').classList.remove('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('addressInput').value = '';
+            document.getElementById('addressInput').focus();
+        }
+        
+        // 페이지 로드시 포커스
+        window.onload = () => {
+            document.getElementById('addressInput').focus();
+        };
+    </script>
+</body>
+</html>

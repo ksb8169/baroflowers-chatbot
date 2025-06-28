@@ -187,37 +187,7 @@ body {
 
 /* 기존 그리드 스타일도 지원 */
 .example-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.example-item {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.example-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-color: #e74c3c;
-}
-
-.example-item strong {
-    display: block;
-    color: #495057;
-    font-size: 13px;
-    margin-bottom: 5px;
-}
-
-.example-item p {
-    color: #6c757d;
-    font-size: 12px;
-    margin: 0;
+    display: none; /* 태그 스타일 사용시 숨김 */
 }
 
 /* ========================================
@@ -257,7 +227,6 @@ body {
     font-size: 16px;
     line-height: 1.8;
     color: #2c3e50;
-    white-space: pre-wrap;
 }
 
 /* 주소 확인 영역 */

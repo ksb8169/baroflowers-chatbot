@@ -1,0 +1,466 @@
+/* 
+   바로플라워스 스타일 CSS V3
+   예시 박스와 배송정보 박스가 전환되는 방식
+*/
+
+/* 기본 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 메인 앱 컨테이너 - 800x600 고정 크기 */
+.app-container {
+    width: 800px;
+    height: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 스타일 */
+.app-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.phone-button {
+    background-color: #27ae60;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.phone-button:hover {
+    background-color: #229954;
+}
+
+/* 메인 콘텐츠 영역 */
+.app-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;  /* 30px → 20px로 줄여서 더 많은 콘텐츠 표시 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 주소 입력 섹션 */
+.address-section {
+    margin-bottom: 15px;  /* 20px → 15px로 줄임 */
+}
+
+.address-form {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.address-input {
+    flex: 1;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.address-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.search-button {
+    padding: 15px 30px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #2980b9;
+}
+
+.search-button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* 콘텐츠 박스 영역 */
+.content-box-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 예시 박스 */
+.example-box {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.example-box h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.example-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.example-item {
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.example-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.example-item strong {
+    display: block;
+    color: #495057;
+    font-size: 13px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.example-item p {
+    color: #6c757d;
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* 배송정보 박스 */
+.delivery-box {
+    background-color: #f8f9fa;
+    padding: 0;  /* 패딩 제거하여 내용이 바로 표시되도록 */
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    animation: fadeIn 0.3s ease-in;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;  /* 모서리 밖으로 나가지 않도록 */
+}
+
+/* ==========================================
+   📦 배송 정보 내용 영역
+   ==========================================
+   챗봇 답변이 실제로 표시되는 공간이에요.
+*/
+/* 배송 정보 내용 영역 */
+.delivery-content {
+    /* 남은 공간을 모두 차지하도록 해요 */
+    flex: 1;
+    
+    /* 내용이 많으면 세로 스크롤이 생겨요 */
+    overflow-y: auto;
+    
+    /* 플렉스 사용 안함 - 일반 블록으로 변경 */
+    display: block;
+    
+    /* 글자를 왼쪽에 정렬해요 */
+    text-align: left;
+    
+    /* 패딩을 0으로 설정 */
+    padding: 0;
+    
+    /* 배경색을 흰색으로 설정 */
+    background-color: white;
+}
+
+/* ==========================================
+   ⏳ 로딩 상태 ("주소 정보를 확인하고 있습니다..." 부분)
+   ==========================================
+   검색 버튼을 눌렀을 때 잠시 보이는 로딩 화면이에요.
+*/
+.loading-state {
+    /* 글자를 왼쪽에 정렬해요 */
+    text-align: left;
+    
+    /* 안쪽 여백을 20px로 설정해요 (모든 방향) */
+    padding: 20px;
+    
+    /* 가로 너비를 화면 전체(100%)로 만들어요 */
+    width: 100%;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 0 20px 0;  /* 좌측 정렬 */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+    color: #7f8c8d;
+    font-size: 16px;  /* 14px → 16px로 크게 */
+    line-height: 1.3;  /* 행간격 추가 */
+}
+
+/* ==========================================
+   🎯 결과 메시지 스타일 (여기가 가장 중요해요!)
+   ==========================================
+   이 부분이 "안녕하세요! 😊" 같은 챗봇 답변이 보이는 곳이에요.
+   여기서 글자 크기, 줄 간격, 정렬 방식을 바꿀 수 있어요!
+*/
+.result-message {
+    /* 배경색과 테두리 제거 (부모 요소의 스타일 사용) */
+    background-color: transparent;
+    
+    /* 안쪽 여백 (패딩)을 설정해요 */
+    /* padding: 위아래 좌우; 형식이에요 */
+    /* 20px = 모든 방향 여백 */
+    padding: 25px;
+    
+    /* 모서리와 테두리 제거 */
+    border-radius: 0;
+    border: none;
+    
+    /* ⭐⭐⭐ 글자 크기예요! 숫자를 크게 하면 글자가 커져요 ⭐⭐⭐ */
+    /* 예: 14px(작게), 16px(보통), 18px(크게), 20px(더 크게) */
+    font-size: 16px;
+    
+    /* ⭐⭐⭐ 줄 간격이에요! 숫자가 작을수록 줄이 가까워져요 ⭐⭐⭐ */
+    /* 예: 1.0(아주 좁게), 1.2(좁게), 1.5(보통), 2.0(넓게) */
+    line-height: 1.2;
+    
+    /* 글자 색깔이에요 (#333 = 진한 회색) */
+    color: #333;
+    
+    /* 줄바꿈을 자동으로 해줘요 (긴 문장도 자동으로 다음 줄로) */
+    white-space: pre-wrap;
+    
+    /* 아래쪽 여백을 제거 */
+    margin-bottom: 0;
+    
+    /* 가로 너비를 100%로 채워요 (화면 끝까지) */
+    width: 100%;
+    
+    /* ⭐⭐⭐ 글자 정렬이에요! left = 왼쪽 정렬 ⭐⭐⭐ */
+    /* !important는 "반드시 이렇게 해!"라는 뜻이에요 */
+    /* left(왼쪽), center(가운데), right(오른쪽) 중에 선택 */
+    text-align: left !important;
+    
+    /* 글자 사이의 간격이에요 (음수는 글자를 좀 더 가깝게) */
+    letter-spacing: -0.3px;
+    
+    /* 이 요소를 "블록"으로 만들어요 (한 줄 전체를 차지하게) */
+    display: block;
+}
+
+/* 결과 메시지 내부의 모든 요소들도 좌측 정렬 */
+.result-message * {
+    text-align: left !important;
+}
+
+/* 첫 번째 줄도 확실히 좌측 정렬 */
+.result-message br:first-child {
+    display: none;
+}
+
+/* 첫 번째 줄 특별 처리 */
+.result-message::first-line {
+    text-align: left !important;
+    text-indent: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* 첫 번째 span 요소 특별 처리 */
+.result-message > span:first-child {
+    text-align: left !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-indent: 0 !important;
+}
+
+/* 에러 메시지 */
+.error-message {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+    padding: 12px 20px;  /* 패딩 줄임 */
+    padding-left: 20px;  /* 좌측 들여쓰기 줄임 */
+    border-radius: 8px;
+    margin-bottom: 15px;  /* 여백 줄임 */
+    font-size: 16px;  /* 텍스트 크기 키움 */
+    width: 100%;  /* 전체 너비 사용 */
+    text-align: left;  /* 텍스트 좌측 정렬 */
+    line-height: 1.3;  /* 행간격 추가 */
+}
+
+/* 연락처 정보 */
+.contact-info {
+    text-align: center;
+    padding: 15px;  /* 20px → 15px로 줄임 */
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    margin-bottom: 15px;  /* 20px → 15px로 줄임 */
+}
+
+.contact-info p {
+    margin: 3px 0;  /* 5px → 3px로 줄임 */
+    color: #1976d2;
+    font-size: 14px;
+    line-height: 1.3;  /* 행간격 좁게 추가 */
+}
+
+.contact-info strong {
+    font-size: 18px;
+    color: #0d47a1;
+}
+
+/* 새로운 검색 버튼 */
+.new-search-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.new-search-button:hover {
+    background-color: #5a6268;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 820px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .app-header {
+        padding: 15px;
+    }
+
+    .app-header h1 {
+        font-size: 20px;
+    }
+
+    .phone-button {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .app-main {
+        padding: 20px;
+    }
+
+    .example-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+}
+
+/* 작은 모바일 화면 */
+@media (max-width: 480px) {
+    .app-header h1 {
+        font-size: 18px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .address-input,
+    .search-button {
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+
+    .delivery-box h3 {
+        font-size: 18px;
+    }
+}

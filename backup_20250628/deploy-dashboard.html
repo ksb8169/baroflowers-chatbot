@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 배포 대시보드 - 바로꽃배달</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .step {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            border-color: #e74c3c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.1);
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .step-content {
+            margin-left: 55px;
+            color: #555;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .status-section {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .status-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .url-list {
+            list-style: none;
+        }
+        
+        .url-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #c8e6c9;
+        }
+        
+        .url-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .url-list a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .url-list a:hover {
+            text-decoration: underline;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #856404;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .step-title {
+                font-size: 18px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #e74c3c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>🚀 배포 대시보드</h1>
+            <p>바로꽃배달 통합형 UI 배포 관리</p>
+        </div>
+        
+        <div class="content">
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">배포 전 준비 확인</div>
+                </div>
+                <div class="step-content">
+                    <p>새로운 통합형 UI 파일들이 준비되었습니다:</p>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>✅ index-integrated.html</li>
+                        <li>✅ style-integrated.css</li>
+                        <li>✅ script-integrated.js</li>
+                        <li>✅ compare-versions.html</li>
+                    </ul>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="window.open('test-before-deploy.html', '_blank')">
+                            🧪 로컬 테스트
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.open('compare-versions.html', '_blank')">
+                            👀 디자인 미리보기
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">GitHub 업로드 실행</div>
+                </div>
+                <div class="step-content">
+                    <p>아래 명령어를 실행하여 GitHub에 업로드합니다:</p>
+                    <div class="code-block">
+                        cd C:\Users\오늘\Desktop\chatbot-webapp\baroflowers-v3-latest<br>
+                        deploy-integrated.bat
+                    </div>
+                    <p style="margin-top: 10px;">또는 Git 명령어를 직접 실행:</p>
+                    <div class="code-block">
+                        git add .<br>
+                        git commit -m "feat: 통합형 UI 버전 추가"<br>
+                        git push origin main
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">배포 상태 확인</div>
+                </div>
+                <div class="step-content">
+                    <p>GitHub 푸시 후 Vercel이 자동으로 배포를 시작합니다.</p>
+                    <div class="button-group">
+                        <a href="https://github.com/ksb8169/baroflowers-chatbot" target="_blank" class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub 저장소
+                        </a>
+                        <a href="https://vercel.com/dashboard" target="_blank" class="btn btn-secondary">
+                            ▲ Vercel 대시보드
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Section -->
+            <div class="status-section">
+                <div class="status-title">📌 배포 완료 후 접속 URL</div>
+                <ul class="url-list">
+                    <li>
+                        <strong>기존 버전 (운영중):</strong><br>
+                        <a href="https://baroflowers-chatbot.vercel.app/" target="_blank">
+                            https://baroflowers-chatbot.vercel.app/
+                        </a>
+                    </li>
+                    <li>
+                        <strong>통합형 버전 (NEW):</strong><br>
+                        <a href="https://baroflowers-chatbot.vercel.app/index-integrated.html" target="_blank">
+                            https://baroflowers-chatbot.vercel.app/index-integrated.html
+                        </a>
+                    </li>
+                    <li>
+                        <strong>버전 비교 페이지:</strong><br>
+                        <a href="https://baroflowers-chatbot.vercel.app/compare-versions.html" target="_blank">
+                            https://baroflowers-chatbot.vercel.app/compare-versions.html
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Warning -->
+            <div class="warning">
+                <strong>⏱️ 배포 시간:</strong> GitHub 푸시 후 약 3-5분 소요됩니다. 
+                Vercel 대시보드에서 실시간 진행 상황을 확인할 수 있습니다.
+            </div>
+            
+            <!-- Final CTA -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary" onclick="startDeploy()" style="font-size: 18px; padding: 15px 40px;">
+                    🚀 지금 배포 시작하기
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function startDeploy() {
+            if (confirm('배포를 시작하시겠습니까?\n\n1. deploy-integrated.bat 파일을 실행하세요\n2. 3-5분 후 배포가 완료됩니다')) {
+                alert('터미널에서 아래 명령어를 실행하세요:\n\ncd C:\\Users\\오늘\\Desktop\\chatbot-webapp\\baroflowers-v3-latest\ndeploy-integrated.bat');
+            }
+        }
+    </script>
+</body>
+</html>
