@@ -13,9 +13,6 @@
         <!-- 헤더 영역 -->
         <header class="app-header">
             <h1>🌺 바로꽃배달 배송안내</h1>
-            <a href="tel:010-2498-8515" class="phone-button">
-                📞 고객센터
-            </a>
         </header>
 
         <!-- 메인 콘텐츠 영역 -->
@@ -38,23 +35,18 @@
                             </button>
                         </div>
                     </div>
+                    
+                    <!-- 고객센터 버튼 (예시 태그 자리로 이동) -->
+                    <div class="customer-center-area">
+                        <a href="tel:010-2498-8515" class="customer-center-button">
+                            📞 고객센터
+                        </a>
+                    </div>
                 </form>
             </section>
 
-            <!-- 콘텐츠 박스 영역 (예시 박스 ↔ 배송정보 박스 전환) -->
+            <!-- 배송정보 박스 (검색 시 표시) -->
             <section class="content-box-area">
-                <!-- 예시 박스 (초기 표시) -->
-                <div id="exampleBox" class="example-box">
-                    <h3>💡 예시 주소를 클릭해보세요</h3>
-                    <div class="example-tags">
-                        <div class="example-tag" onclick="setExampleAddress('서울 강남구 테헤란로 152')">강남 코엑스</div>
-                        <div class="example-tag" onclick="setExampleAddress('부산 해운대구 우동 1413')">부산 벡스코</div>
-                        <div class="example-tag" onclick="setExampleAddress('대구가톨릭대학교병원')">대구가톨릭대병원</div>
-                        <div class="example-tag" onclick="setExampleAddress('포시즌스호텔 서울')">포시즌스호텔</div>
-                    </div>
-                </div>
-
-                <!-- 배송정보 박스 (검색 시 표시) -->
                 <div id="deliveryBox" class="delivery-box" style="display: none;">
                     <div id="deliveryContent" class="delivery-content">
                         <!-- 로딩 또는 결과가 여기에 표시됩니다 -->

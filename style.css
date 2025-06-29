@@ -28,6 +28,8 @@ body {
     margin: 0 auto;
     background-color: #fff;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ========================================
@@ -37,35 +39,20 @@ body {
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    text-align: center;
 }
 
 .app-header h1 {
     font-size: 24px;
     font-weight: 600;
     color: #2c3e50;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin: 0;
 }
 
-.phone-button {
-    color: #e74c3c;
-    text-decoration: none;
-    padding: 10px 20px;
-    border: 2px solid #e74c3c;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
 
-.phone-button:hover {
-    background-color: #e74c3c;
-    color: white;
-}
 
 /* ========================================
    메인 콘텐츠
@@ -145,44 +132,31 @@ body {
 }
 
 /* ========================================
-   예시 박스 - 태그 스타일
+   고객센터 버튼 - 예시 태그 자리로 이동
    ======================================== */
-.example-box {
-    margin-bottom: 30px;
-}
-
-.example-box h3 {
-    font-size: 16px;
-    color: #7f8c8d;
-    margin-bottom: 15px;
-    font-weight: 500;
+.customer-center-area {
     text-align: center;
+    margin-top: 20px;
 }
 
-/* 태그형 예시 */
-.example-tags {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.example-tag {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-size: 14px;
-    color: #34495e;
-    cursor: pointer;
+.customer-center-button {
+    display: inline-block;
+    color: #e74c3c;
+    text-decoration: none;
+    padding: 12px 30px;
+    border: 2px solid #e74c3c;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 500;
     transition: all 0.3s ease;
+    background-color: #fff;
 }
 
-.example-tag:hover {
+.customer-center-button:hover {
     background-color: #e74c3c;
     color: white;
-    border-color: #e74c3c;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
 
 /* 기존 그리드 스타일도 지원 */
@@ -452,13 +426,9 @@ body {
         margin-top: 10px;
     }
 
-    .example-tags {
-        justify-content: flex-start;
-    }
-
-    .example-tag {
-        font-size: 13px;
-        padding: 6px 14px;
+    .customer-center-button {
+        font-size: 14px;
+        padding: 10px 24px;
     }
 }
 
@@ -467,9 +437,9 @@ body {
         font-size: 18px;
     }
 
-    .phone-button {
-        padding: 8px 16px;
+    .customer-center-button {
         font-size: 13px;
+        padding: 8px 20px;
     }
 }
 
