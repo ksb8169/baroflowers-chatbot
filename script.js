@@ -7,34 +7,41 @@
 // API 설정 (Vercel Functions 사용 - 즉시 응답)
 const API_URL = '/api/chat';
 
-// DOM 요소들
-const addressForm = document.getElementById('addressForm');
-const addressInput = document.getElementById('addressInput');
-const searchButton = document.getElementById('searchButton');
-const exampleBox = document.getElementById('exampleBox');
-const deliveryBox = document.getElementById('deliveryBox');
-const deliveryContent = document.getElementById('deliveryContent');
+// DOM 요소들 (초기화 함수에서 설정)
+let addressForm, addressInput, searchButton, deliveryBox, deliveryContent;
 
-// 폼 제출 이벤트 처리
-addressForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // 페이지 새로고침 방지
+// 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM 요소들 가져오기
+    addressForm = document.getElementById('addressForm');
+    addressInput = document.getElementById('addressInput');
+    searchButton = document.getElementById('searchButton');
+    deliveryBox = document.getElementById('deliveryBox');
+    deliveryContent = document.getElementById('deliveryContent');
     
-    const address = addressInput.value.trim();
+    // 폼 제출 이벤트 처리
+    addressForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // 페이지 새로고침 방지
+        
+        const address = addressInput.value.trim();
+        
+        // 주소가 비어있는지 확인
+        if (!address) {
+            alert('주소를 입력해주세요.');
+            return;
+        }
+        
+        // 배송 정보 조회 시작
+        await checkDeliveryConditions(address);
+    });
     
-    // 주소가 비어있는지 확인
-    if (!address) {
-        alert('주소를 입력해주세요.');
-        return;
-    }
-    
-    // 배송 정보 조회 시작
-    await checkDeliveryConditions(address);
+    // 초기 포커스
+    addressInput.focus();
 });
 
 // 배송 조건 확인 함수
 async function checkDeliveryConditions(address) {
-    // 예시 박스 숨기고 배송정보 박스 표시
-    exampleBox.style.display = 'none';
+    // 배송정보 박스 표시
     deliveryBox.style.display = 'block';
     
     // 로딩 표시
@@ -130,9 +137,8 @@ function showError(message) {
 
 // 새로운 검색 시작 (초기 상태로 돌아감)
 function resetSearch() {
-    // 배송정보 박스 숨기고 예시 박스 표시
+    // 배송정보 박스 숨기기
     deliveryBox.style.display = 'none';
-    exampleBox.style.display = 'block';
     
     // 입력창 초기화
     addressInput.value = '';
@@ -142,32 +148,17 @@ function resetSearch() {
     deliveryContent.innerHTML = '';
 }
 
-// 예시 주소 클릭 시 자동 입력
-document.addEventListener('DOMContentLoaded', () => {
-    // 예시 주소들에 클릭 이벤트 추가
-    const exampleItems = document.querySelectorAll('.example-item p');
-    exampleItems.forEach(item => {
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', () => {
-            addressInput.value = item.textContent;
-            addressInput.focus();
-        });
-    });
-    
-    // 입력창에 포커스가 가면 예시 박스로 자동 전환
-    addressInput.addEventListener('focus', () => {
-        if (deliveryBox.style.display === 'block' && deliveryContent.innerHTML !== '') {
-            // 결과가 표시된 상태에서 입력창에 포커스하면 초기화
-            resetSearch();
-        }
-    });
-    
-    // 초기 포커스
-    addressInput.focus();
-});
-
 // 예시 태그 클릭 시 주소 설정 함수
+// 태그를 클릭하면 주소가 자동으로 입력되고 검색이 실행됩니다
 function setExampleAddress(address) {
+    // 1. 입력창에 주소를 넣습니다
     addressInput.value = address;
-    addressForm.dispatchEvent(new Event('submit'));
+    
+    // 2. 입력창에 포커스를 줍니다 (사용자가 어디에 입력되었는지 알 수 있도록)
+    addressInput.focus();
+    
+    // 3. 약간의 지연 후 자동으로 검색을 실행합니다
+    setTimeout(() => {
+        addressForm.dispatchEvent(new Event('submit'));
+    }, 100);
 }
